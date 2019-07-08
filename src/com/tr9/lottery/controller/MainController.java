@@ -68,11 +68,14 @@ public class MainController implements Initializable {
                 e.printStackTrace();
             }
             if (startTextField.getText().length() > 0 && endTextField.getText().length() > 0) {
-                list = service.list(list, startTextField.getText(), endTextField.getText());
-            } else {
-                ObservableList dataList = FXCollections.observableList(list);
-                tableView.setItems(dataList);
+                try {
+                    list = service.list(list, startTextField.getText(), endTextField.getText());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+            ObservableList dataList = FXCollections.observableList(list);
+            tableView.setItems(dataList);
         }
     }
 

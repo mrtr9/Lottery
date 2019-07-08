@@ -23,7 +23,7 @@ public interface Service {
      * @param end 结束期号
      * @return List<Bean>
      */
-    public List<Bean> list(String start ,String end) throws Exception;
+    public List<Bean> list(List<Bean> beanList,String start ,String end) throws Exception;
     /**
      * 根据传入的bean获取计算结果
      * @param beans List集合的Bean对象

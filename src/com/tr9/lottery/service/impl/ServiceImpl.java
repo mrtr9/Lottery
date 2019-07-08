@@ -65,7 +65,7 @@ public class ServiceImpl implements Service {
         return beans;
     }
 
-    public List<Bean> list(String start, String end) throws  Exception{
+    public List<Bean> list(List<Bean> beanList,String start, String end) throws  Exception{
         //List<Bean> date = cache.get("date");
         List<Bean> date = this.list(100);
         System.out.println("111===="+date.toString());

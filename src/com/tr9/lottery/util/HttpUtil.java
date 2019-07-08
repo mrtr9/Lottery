@@ -8,4 +8,5 @@ package com.tr9.lottery.util;
  */
 public class HttpUtil {
 
+
 }

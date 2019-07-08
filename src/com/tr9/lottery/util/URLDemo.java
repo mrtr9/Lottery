@@ -31,7 +31,7 @@ public class URLDemo {
         ServiceImpl service = new ServiceImpl();
         /*List<Bean> list = service.list(10);
         System.out.println(list.toString());*/
-        List<Bean> beans = service.list("07071336", "07071328");
-        System.out.println(beans.toString());
+//        List<Bean> beans = service.list("07071336", "07071328");
+//        System.out.println(beans.toString());
     }
 }

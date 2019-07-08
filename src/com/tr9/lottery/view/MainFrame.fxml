@@ -5,27 +5,64 @@
 <?import javafx.scene.layout.*?>
 
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <Pane id="mainPane" fx:controller="com.tr9.lottery.controller.MainController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane id="scrollPane" layoutX="8.0" layoutY="52.0" prefHeight="385.0" prefWidth="680.0">
          <content>
-            <TableView id="tableView" prefHeight="367.0" prefWidth="679.0">
+            <TableView fx:id="tableView" id="tableView" prefHeight="367.0" prefWidth="679.0">
                <columns>
-                  <TableColumn prefWidth="101.0" text="期号" />
-                  <TableColumn prefWidth="73.0" text="号码" />
-                  <TableColumn prefWidth="61.0" text="第一位" />
-                  <TableColumn prefWidth="65.0" text="第二位" />
-                  <TableColumn prefWidth="75.0" text="第三位" />
-                  <TableColumn prefWidth="75.0" text="和值" />
-                  <TableColumn prefWidth="75.0" text="大小" />
-                  <TableColumn prefWidth="75.0" text="单双" />
-                  <TableColumn prefWidth="75.0" text="三同" />
+                  <TableColumn prefWidth="101.0" text="期号">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="issue"></PropertyValueFactory>
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="73.0" text="号码">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="openNumber"></PropertyValueFactory>
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="61.0" text="第一位">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="numOne"></PropertyValueFactory>
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="65.0" text="第二位">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="numTwo"></PropertyValueFactory>
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="第三位">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="numThree"></PropertyValueFactory>
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="和值">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="sumValue"></PropertyValueFactory>
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="大小">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="numSize"></PropertyValueFactory>
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="单双">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="singleOrDouble"></PropertyValueFactory>
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="三同">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="similarities"></PropertyValueFactory>
+                     </cellValueFactory>
+                  </TableColumn>
                </columns>
             </TableView>
          </content>
       </ScrollPane>
       <ChoiceBox fx:id="numChoiceBox" id="numChoiceBox" layoutX="8.0" layoutY="14.0" prefWidth="150.0" />
-      <Button id="searchBtn" layoutX="564.0" layoutY="14.0" mnemonicParsing="false" text="查询" />
+      <Button id="searchBtn" onMouseClicked="#search" layoutX="564.0" layoutY="14.0" mnemonicParsing="false" text="查询" />
       <TextField fx:id="startTextField" id="startTextField" layoutX="191.0" layoutY="14.0" prefHeight="30.0" prefWidth="150.0" promptText="请输入开始期号" />
       <TextField fx:id="endTextField" id="endTextField" layoutX="383.0" layoutY="14.0" prefHeight="30.0" prefWidth="150.0" promptText="请输入结束期号" />
       <Button layoutX="636.0" layoutY="14.0" mnemonicParsing="false" text="分析" />

@@ -20,7 +20,7 @@ public class Main extends Application {
         Pane root = FXMLLoader.load(getClass().getResource("MainFrame.fxml"));
         primaryStage.setTitle("58彩票大发三分析工具");
         primaryStage.setScene(new Scene(root, 700, 600));
-        primaryStage.setAlwaysOnTop(true);
+//        primaryStage.setAlwaysOnTop(true);
         primaryStage.setResizable(false);
         primaryStage.show();
     }

@@ -15,7 +15,7 @@ public interface Service {
      * @param num 具体多少条数
      * @return List<Bean>
      */
-    public List<Bean> list(Integer num);
+    public List<Bean> list(Integer num) throws Exception;
 
     /**
      * 通过开始期号跟结束期号获取结果
@@ -23,7 +23,7 @@ public interface Service {
      * @param end 结束期号
      * @return List<Bean>
      */
-    public List<Bean> list(Integer start ,Integer end);
+    public List<Bean> list(String start ,String end) throws Exception;
     /**
      * 根据传入的bean获取计算结果
      * @param beans List集合的Bean对象

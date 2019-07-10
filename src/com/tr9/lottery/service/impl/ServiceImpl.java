@@ -10,13 +10,11 @@ import com.tr9.lottery.bean.Calc;
 import com.tr9.lottery.service.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DecimalFormat;
+import java.util.*;
 
 public class ServiceImpl implements Service {
-    public static final Map<String,List> cache=new HashMap<String,List>();
+    private static final Map<String,List> cache=new HashMap<String,List>();
     public List<Bean> list(Integer num) throws Exception {
         HttpUtil httpUtil = new HttpUtil();
         String datastr = httpUtil.getData(num);
@@ -65,10 +63,10 @@ public class ServiceImpl implements Service {
         return beans;
     }
 
-    public List<Bean> list(List<Bean> beanList,String start, String end) throws Exception{
+    public List<Bean> list(List<Bean> bea,String start, String end) throws Exception{
         //List<Bean> date = cache.get("date");
         List<Bean> date = this.list(100);
-        System.out.println("111===="+date.toString());
+
         List<Bean> beans = new ArrayList<Bean>();
         for (Bean bean:date){
             String issue = bean.getIssue();
@@ -76,11 +74,82 @@ public class ServiceImpl implements Service {
                beans.add(bean);
             }
         }
+        System.out.println("111===="+date.toString());
         return beans;
     }
 
 
-    public Calc get(List<Bean> beans) {
-        return null;
+    public List<Calc> get(List<Bean> beans) {
+
+        int beanSize = beans.size();
+        List<String> list = new ArrayList<String>();
+        for (Bean bean:beans){
+            String sumValue = bean.getSumValue();
+            list.add(sumValue);
+        }
+        String liststr=list.toString();
+        String substring = liststr.substring(1, liststr.length() - 1);
+        System.out.println(substring);
+        String[] split = substring.split(",");
+        Map<String,Integer> map = new HashMap<String, Integer>();
+        for (String ch : split) {
+            if (map.containsKey(ch)) {
+                Integer old = map.get(ch);
+                map.put(ch, old + 1);
+            } else {
+                map.put(ch,1);
+            }
+        }
+        String mapstr=map.toString();
+        String mapsb = mapstr.substring(1, mapstr.length() - 1);
+        String[] mapsp = mapsb.split(",");
+        Map<String, String> hashMap = new TreeMap<String, String>();
+        for (String str:mapsp){
+            String[] splits = str.split("=");
+            String num = splits[0];
+            String frequency = splits[1];
+            Integer integer = Integer.valueOf(frequency);
+            double dou = integer * 1.0 / beanSize;
+            DecimalFormat df = new DecimalFormat("#0.00");
+            String str1 = df.format(dou);
+            hashMap.put(num,str1);
+        }
+
+        //这里将map.entrySet()转换成list
+        List<Map.Entry<String,String>> datelist = new ArrayList<Map.Entry<String,String>>(hashMap.entrySet());
+        //然后通过比较器来实现排序
+        Collections.sort(datelist,new Comparator<Map.Entry<String,String>>() {
+            //升序排序
+            public int compare(Map.Entry<String, String> o1,
+                               Map.Entry<String, String> o2) {
+                return o1.getValue().compareTo(o2.getValue());
+            }
+        });
+        List<Calc> lastList = new ArrayList<Calc>();
+        for (int k=datelist.size()-3;k<datelist.size();k++){
+            Calc calc = new Calc();
+            Map.Entry<String, String> maps = datelist.get(k);
+            String key = maps.getKey();
+            String trim = key.trim();
+            calc.setSumNum(trim);
+            Integer value1 = Integer.valueOf(trim);
+            if (value1%2==0){
+                calc.setSingleOrDouble("双");
+            }else{
+                calc.setSingleOrDouble("单");
+            }
+            if (4<value1&&value1<10){
+                calc.setSize("小");
+
+            }else{
+                calc.setSize("大");
+            }
+
+            lastList.add(calc);
+        }
+
+        return lastList;
     }
+
+
 }

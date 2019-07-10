@@ -132,6 +132,9 @@ public class ServiceImpl implements Service {
             String key = maps.getKey();
             String trim = key.trim();
             calc.setSumNum(trim);
+            String value = maps.getValue();
+            Double probability = Double.valueOf(value);
+            calc.setProbability(probability);
             Integer value1 = Integer.valueOf(trim);
             if (value1%2==0){
                 calc.setSingleOrDouble("双");

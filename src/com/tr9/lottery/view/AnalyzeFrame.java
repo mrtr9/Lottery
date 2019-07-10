@@ -1,5 +1,6 @@
 package com.tr9.lottery.view;
 
+import com.tr9.lottery.manager.Manager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,6 +27,7 @@ public class AnalyzeFrame extends Application {
         primaryStage.setScene(new Scene(root, 800, 700));
         primaryStage.setResizable(false);
         primaryStage.show();
+        Manager.context.put("AnalyzeStage", primaryStage);
     }
 
     public static AnalyzeFrame getInstance(){

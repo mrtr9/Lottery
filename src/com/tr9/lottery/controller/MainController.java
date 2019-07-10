@@ -1,6 +1,7 @@
 package com.tr9.lottery.controller;
 
 import com.tr9.lottery.bean.Bean;
+import com.tr9.lottery.bean.Calc;
 import com.tr9.lottery.manager.Manager;
 import com.tr9.lottery.service.Service;
 import com.tr9.lottery.service.impl.ServiceImpl;
@@ -43,7 +44,7 @@ public class MainController implements Initializable {
     private ChoiceBox numChoiceBox;
 
     public void initialize(URL location, ResourceBundle resources) {
-        Manager.context.put("main", this);
+        Manager.context.put("MainController", this);
         ObservableList<String> list = FXCollections.observableArrayList();
         list.add("请选择");
         list.add("近10期");
@@ -103,8 +104,20 @@ public class MainController implements Initializable {
         }
     }
 
-    public void doResult(){
-
+    public void doResult(List<Calc> list) {
+        StringBuilder sb = new StringBuilder("推荐号码：\n");
+        int i = 1;
+        for (Calc c : list) {
+            int gailv = (int) (c.getProbability() * 100);
+            sb.append(i);
+            sb.append(". 和值：" + c.getSumNum() + ",   大小：" + c.getSize() + "，   单双：" + c.getSingleOrDouble() + "，   近期出现概率：" + gailv + "% \n");
+            System.out.println(c);
+            i++;
+        }
+        sb.append("本软件采用最近期数出现次数最多排名前三的号码进行推荐\n");
+        sb.append("本软件仅适合分析，不保证能够完全中奖，请理性购彩\n");
+        sb.append("最后祝您购彩愉快，大吉大利！");
+        resultTextArea.setText(sb.toString());
     }
 
     private int getNum() {

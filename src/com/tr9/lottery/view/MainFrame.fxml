@@ -65,7 +65,7 @@
       <Button id="searchBtn" onMouseClicked="#search" layoutX="564.0" layoutY="14.0" mnemonicParsing="false" text="查询" />
       <TextField fx:id="startTextField" id="startTextField" layoutX="191.0" layoutY="14.0" prefHeight="30.0" prefWidth="150.0" promptText="请输入开始期号" />
       <TextField fx:id="endTextField" id="endTextField" layoutX="383.0" layoutY="14.0" prefHeight="30.0" prefWidth="150.0" promptText="请输入结束期号" />
-      <Button layoutX="646.0" layoutY="14.0" mnemonicParsing="false" text="分析" />
+      <Button fx:id="analyzeBtn" onMouseClicked="#analyze" layoutX="646.0" layoutY="14.0" mnemonicParsing="false" text="分析" />
       <Label layoutX="349.0" layoutY="19.0" text="----" />
       <TextArea fx:id="resultTextArea" id="resultTextArea" layoutX="8.0" layoutY="441.0" prefHeight="153.0" prefWidth="690.0" />
    </children>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+
+<Pane fx:controller="com.tr9.lottery.controller.AnalyzeController" fx:id="analyzePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane prefHeight="660.0" prefWidth="800.0">
+         <content>
+            <LineChart fx:id="lineChart" prefHeight="640.0" prefWidth="2000.0">
+              <xAxis>
+                  <CategoryAxis side="BOTTOM" label="期数" />
+              </xAxis>
+                <yAxis>
+                    <NumberAxis lowerBound="3" upperBound="18" tickUnit="1" side="LEFT" label="和值"/>
+              </yAxis>
+            </LineChart>
+         </content>
+      </ScrollPane>
+      <Button fx:id="doResultBtn" onMouseClicked="#doResult" layoutX="717.0" layoutY="665.0" mnemonicParsing="false" text="生成结果" />
+   </children>
+</Pane>

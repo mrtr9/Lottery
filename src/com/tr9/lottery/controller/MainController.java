@@ -1,13 +1,16 @@
 package com.tr9.lottery.controller;
 
 import com.tr9.lottery.bean.Bean;
+import com.tr9.lottery.manager.Manager;
 import com.tr9.lottery.service.Service;
 import com.tr9.lottery.service.impl.ServiceImpl;
+import com.tr9.lottery.view.AnalyzeFrame;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.List;
@@ -22,7 +25,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     private Service service = new ServiceImpl();
-    private List<Bean> list = null;
+    public static List<Bean> list = null;
 
     @FXML
     private TextArea resultTextArea;
@@ -39,8 +42,8 @@ public class MainController implements Initializable {
     @FXML
     private ChoiceBox numChoiceBox;
 
-
     public void initialize(URL location, ResourceBundle resources) {
+        Manager.context.put("main", this);
         ObservableList<String> list = FXCollections.observableArrayList();
         list.add("请选择");
         list.add("近10期");
@@ -61,22 +64,47 @@ public class MainController implements Initializable {
     @FXML
     public void search() {
         int num = getNum();
-        if(num > 0){
+        if (num > 0) {
+            new Thread(() -> doSearch(num)).start();
+        }
+    }
+
+    private void doSearch(int num) {
+
+        try {
+            list = service.list(num);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (startTextField.getText().length() > 0 && endTextField.getText().length() > 0) {
             try {
-                list = service.list(num);
+                list = service.list(list, startTextField.getText(), endTextField.getText());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if (startTextField.getText().length() > 0 && endTextField.getText().length() > 0) {
-                try {
-                    list = service.list(list, startTextField.getText(), endTextField.getText());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            ObservableList dataList = FXCollections.observableList(list);
-            tableView.setItems(dataList);
         }
+        ObservableList dataList = FXCollections.observableList(list);
+        tableView.setItems(dataList);
+
+    }
+
+    @FXML
+    public void analyze() throws Exception {
+        if (list != null) {
+            AnalyzeFrame analyzeFrame = AnalyzeFrame.getInstance();
+            analyzeFrame.start(new Stage());
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("错误");
+            alert.setHeaderText("错误提示");
+            alert.setContentText("请先查询");
+            alert.showAndWait();
+        }
+    }
+
+    public void doResult(){
+
     }
 
     private int getNum() {
